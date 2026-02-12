@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "446613767803",
+    "project_id": "d-fire123",
+    "storage_bucket": "d-fire123.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:446613767803:android:d107bb48d2cc9708b404de",
+        "android_client_info": {
+          "package_name": "com.example.demo_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-f_ZBcb5VxrozcE04LBX1teilJciEehc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
