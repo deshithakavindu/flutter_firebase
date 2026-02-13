@@ -44,8 +44,13 @@ class MyApp extends StatelessWidget {
                         return ListView.builder(
                           itemCount: students.length,
                           itemBuilder: (context, index) {
-                            var data = snapshot.data![index].data();
-                            return Text("$data");
+                            var data =
+                                snapshot.data![index].data()
+                                    as Map<String, dynamic>;
+                            return ListTile(
+                              title: Text(data['name'] ?? 'No Name'),
+                              subtitle: Text(data['age'] ?? 'No Age'),
+                            );
                           },
                         );
                       }
