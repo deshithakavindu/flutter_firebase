@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_firebase/models/student.dart';
 import 'package:demo_firebase/students_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
                 const SizedBox(height: 30),
 
                 Expanded(
-                  child: FutureBuilder<List<QueryDocumentSnapshot>>(
+                  child: FutureBuilder<List<QueryDocumentSnapshot<Student>>>(
                     future: StudentsDetails.getstudents(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -41,15 +42,18 @@ class MyApp extends StatelessWidget {
                         return const Center(child: Text("No students found"));
                       } else {
                         final students = snapshot.data!;
+
                         return ListView.builder(
                           itemCount: students.length,
                           itemBuilder: (context, index) {
-                            var data =
-                                snapshot.data![index].data()
-                                    as Map<String, dynamic>;
+                            Student student = snapshot.data![index].data();
+                            print(
+                              "type of student: ${student.runtimeType}",
+                            ); // should print: Student
+
                             return ListTile(
-                              title: Text(data['name'] ?? 'No Name'),
-                              subtitle: Text(data['age'] ?? 'No Age'),
+                              title: Text(student.name),
+                              subtitle: Text(student.city),
                             );
                           },
                         );
