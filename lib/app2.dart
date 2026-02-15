@@ -4,8 +4,8 @@ import 'package:demo_firebase/students_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-class Onetimedata extends StatelessWidget {
-  const Onetimedata({super.key});
+class Realtimedata extends StatelessWidget {
+  const Realtimedata({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +31,23 @@ class Onetimedata extends StatelessWidget {
                 const SizedBox(height: 30),
 
                 Expanded(
-                  child: FutureBuilder<List<QueryDocumentSnapshot<Student>>>(
-                    future: StudentsDetails.getstudents(),
-                    builder: (context, snapshot) {
+                  child: StreamBuilder(
+                    stream: StudentsDetails.getstudentstream(),
+                    builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
                         return Center(child: Text("Error: ${snapshot.error}"));
-                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      } else if (!snapshot.hasData ||
+                          snapshot.data!.docs.isEmpty) {
                         return const Center(child: Text("No students found"));
                       } else {
-                        final students = snapshot.data!;
+                        final students = snapshot.data!.docs;
 
                         return ListView.builder(
                           itemCount: students.length,
                           itemBuilder: (context, index) {
-                            Student student = snapshot.data![index].data();
+                            Student student = students[index].data();
                             print(
                               "type of student: ${student.runtimeType}",
                             ); // should print: Student

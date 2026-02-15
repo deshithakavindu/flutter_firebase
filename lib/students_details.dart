@@ -14,4 +14,14 @@ class StudentsDetails {
         .get();
     return students.docs;
   }
+
+  static getstudentstream() {
+    return instance
+        .collection('students')
+        .withConverter(
+          fromFirestore: (snapshot, _) => Student.fromJson(snapshot.data()!),
+          toFirestore: (student, _) => student.toJson(),
+        )
+        .snapshots();
+  }
 }
