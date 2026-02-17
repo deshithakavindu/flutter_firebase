@@ -62,13 +62,21 @@ class _MyWidgetState extends State<Realtimedata> {
                           itemBuilder: (context, index) {
                             var student2 = students[index];
                             var student = student2.data();
-                            print(
-                              "type of student: ${student.runtimeType}",
-                            ); // should print: Student
+                            // print(
+                            //   "type of student: ${student.runtimeType}",
+                            // ); // should print: Student
 
-                            return ListTile(
-                              title: Text(student.name),
-                              subtitle: Text(student.city),
+                            return GestureDetector(
+                              onTap: () async {
+                                var stu = await StudentsDetails.getstudentsbyid(
+                                  student2.id,
+                                );
+                                print({"tapped on ${stu?.name}"});
+                              },
+                              child: ListTile(
+                                title: Text(student.name),
+                                subtitle: Text(student.city),
+                              ),
                             );
                           },
                         );

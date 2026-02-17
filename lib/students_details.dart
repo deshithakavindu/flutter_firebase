@@ -25,6 +25,18 @@ class StudentsDetails {
         .snapshots();
   }
 
+  static Future<Student?> getstudentsbyid(String id) async {
+    var student = await instance
+        .collection('students')
+        .doc(id)
+        .withConverter<Student>(
+          fromFirestore: (snapshot, _) => Student.fromJson(snapshot.data()!),
+          toFirestore: (student, _) => student.toJson(),
+        )
+        .get();
+    return student.data();
+  }
+
   static addstudents(Student student) async {
     await instance.collection('students').add(student.toJson());
   }
