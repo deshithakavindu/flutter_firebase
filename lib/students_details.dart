@@ -24,4 +24,8 @@ class StudentsDetails {
         )
         .snapshots();
   }
+
+  static addstudents(Student student) async {
+    await instance.collection('students').add(student.toJson());
+  }
 }

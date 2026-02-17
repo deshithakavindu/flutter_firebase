@@ -4,8 +4,21 @@ import 'package:demo_firebase/students_details.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-class Realtimedata extends StatelessWidget {
+class Realtimedata extends StatefulWidget {
   const Realtimedata({super.key});
+
+  @override
+  State<Realtimedata> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<Realtimedata> {
+  late final Stream<QuerySnapshot<Student>> studentStream;
+
+  @override
+  void initState() {
+    StudentsDetails.addstudents(Student(name: "hope", city: "west indies"));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +60,8 @@ class Realtimedata extends StatelessWidget {
                         return ListView.builder(
                           itemCount: students.length,
                           itemBuilder: (context, index) {
-                            Student student = students[index].data();
+                            var student2 = students[index];
+                            var student = student2.data();
                             print(
                               "type of student: ${student.runtimeType}",
                             ); // should print: Student
