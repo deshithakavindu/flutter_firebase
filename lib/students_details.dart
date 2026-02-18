@@ -40,4 +40,16 @@ class StudentsDetails {
   static addstudents(Student student) async {
     await instance.collection('students').add(student.toJson());
   }
+
+  static getstudentbycity(String cityname) {
+    return instance
+        .collection('students')
+        .where('city', isEqualTo: cityname.trim())
+        .orderBy('name')
+        .withConverter<Student>(
+          fromFirestore: (snapshot, _) => Student.fromJson(snapshot.data()!),
+          toFirestore: (student, _) => student.toJson(),
+        )
+        .snapshots();
+  }
 }

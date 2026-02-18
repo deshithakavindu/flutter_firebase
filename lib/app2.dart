@@ -14,11 +14,11 @@ class Realtimedata extends StatefulWidget {
 class _MyWidgetState extends State<Realtimedata> {
   late final Stream<QuerySnapshot<Student>> studentStream;
 
-  @override
-  void initState() {
-    StudentsDetails.addstudents(Student(name: "hope", city: "west indies"));
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   StudentsDetails.addstudents(Student(name: "hope", city: "west indies"));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +45,16 @@ class _MyWidgetState extends State<Realtimedata> {
 
                 Expanded(
                   child: StreamBuilder(
-                    stream: StudentsDetails.getstudentstream(),
+                    stream: StudentsDetails.getstudentbycity('afganisthan'),
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
+                        print(snapshot.error);
                         return Center(child: Text("Error: ${snapshot.error}"));
                       } else if (!snapshot.hasData ||
                           snapshot.data!.docs.isEmpty) {
-                        return const Center(child: Text("No students found"));
+                        return Center(child: Text("No students found"));
                       } else {
                         final students = snapshot.data!.docs;
 
