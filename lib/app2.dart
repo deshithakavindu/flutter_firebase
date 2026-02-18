@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_firebase/models/student.dart';
 import 'package:demo_firebase/students_details.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,17 @@ class _MyWidgetState extends State<Realtimedata> {
 
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title: Text("real demo"),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+              },
+              icon: Icon(Icons.logout),
+            ),
+          ],
+        ),
         body: SafeArea(
           child: Center(
             child: Column(

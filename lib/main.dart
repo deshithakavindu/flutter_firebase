@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_firebase/FirebaseDemoApp.dart';
 import 'package:demo_firebase/app.dart';
 import 'package:demo_firebase/app2.dart';
+import 'package:demo_firebase/auth/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,21 +12,21 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  var instance = FirebaseFirestore.instance;
-  var credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-    email: "test@gmail.com",
-    password: '123456',
-  );
-  print('firebase instance {$credential}');
-  var user = credential.user;
-  print('firebase.instance: {$user.uid}');
+  // var instance = FirebaseFirestore.instance;
+  // var credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //   email: "test@gmail.com",
+  //   password: '123456',
+  // );
+  // print('firebase instance {$credential}');
+  // var user = credential.user;
+  // print('firebase.instance: {$user.uid}');
   // if (user?.emailVerified ?? false) {
   //   print('user verified');
   // } else {
   //   print('not verified');
   //   await user?.sendEmailVerification();
   // }
-  await FirebaseAuth.instance.signOut();
+  // await FirebaseAuth.instance.signOut();
 
-  runApp(const Realtimedata());
+  runApp(const Firebasedemoapp());
 }
