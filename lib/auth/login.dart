@@ -32,10 +32,12 @@ class _LoginState extends State<Login> {
         ),
       );
 
-      // ✅ Navigate to Realtimedata without context
-      globalNavigatorKey.currentState?.pushReplacementNamed('/Realtimedata');
+      if (userCredential.user!.emailVerified) {
+        globalNavigatorKey.currentState?.pushReplacementNamed('/home');
+      } else {
+        globalNavigatorKey.currentState?.pushReplacementNamed('/verify');
+      }
     } on FirebaseAuthException catch (e) {
-      // You can still use setState here to show error in login page
       setState(() {
         _errormessage = e.message;
       });

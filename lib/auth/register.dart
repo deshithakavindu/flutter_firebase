@@ -1,3 +1,4 @@
+import 'package:demo_firebase/keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -22,22 +23,30 @@ class _RegisterState extends State<Register> {
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
           );
+      await userCredential.user!.sendEmailVerification();
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text(
-            "Registration successful! ${userCredential.user?.email}",
+            "Registration successful! Check your email for verification.",
           ),
         ),
       );
 
-      // Go back to login after register
-      Navigator.of(context).pushReplacementNamed('/login');
+      globalNavigatorKey.currentState?.pushReplacementNamed('/verify');
     } on FirebaseAuthException catch (e) {
       setState(() {
         _errorMessage = e.message;
       });
     }
+
+    // Go back to login after register
+    //   Navigator.of(context).pushReplacementNamed('/login');
+    // } on FirebaseAuthException catch (e) {
+    //   setState(() {
+    //     _errorMessage = e.message;
+    //   });
+    // }
   }
 
   @override
