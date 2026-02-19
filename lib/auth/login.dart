@@ -1,3 +1,4 @@
+import 'package:demo_firebase/keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -21,14 +22,20 @@ class _LoginState extends State<Login> {
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
           );
-      ScaffoldMessenger.of(context).showSnackBar(
+
+      // Show SnackBar (optional)
+      ScaffoldMessenger.of(globalNavigatorKey.currentContext!).showSnackBar(
         SnackBar(
           content: Text(
             "Login successful! Welcome ${userCredential.user?.email}",
           ),
         ),
       );
+
+      // ✅ Navigate to Realtimedata without context
+      globalNavigatorKey.currentState?.pushReplacementNamed('/Realtimedata');
     } on FirebaseAuthException catch (e) {
+      // You can still use setState here to show error in login page
       setState(() {
         _errormessage = e.message;
       });
