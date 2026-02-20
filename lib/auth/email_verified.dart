@@ -18,16 +18,20 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
   void initState() {
     super.initState();
     user = _auth.currentUser;
-    checkEmailVerified();
   }
 
   Future<void> checkEmailVerified() async {
     await user?.reload();
+    if (!mounted) return; // ✅ Stop if widget disposed
     setState(() {
       isVerified = user?.emailVerified ?? false;
     });
     if (isVerified) {
       globalNavigatorKey.currentState?.pushReplacementNamed('/Realtimedata');
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Email not verified yet.")));
     }
   }
 
