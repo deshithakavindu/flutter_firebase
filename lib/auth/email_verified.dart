@@ -22,7 +22,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
 
   Future<void> checkEmailVerified() async {
     await user?.reload();
-    if (!mounted) return; // ✅ Stop if widget disposed
+    if (!mounted) return;
     setState(() {
       isVerified = user?.emailVerified ?? false;
     });

@@ -1,5 +1,6 @@
 import 'package:demo_firebase/app2.dart';
 import 'package:demo_firebase/auth/email_verified.dart';
+import 'package:demo_firebase/auth/firebase_auth_ui.dart';
 import 'package:demo_firebase/auth/login.dart';
 import 'package:demo_firebase/auth/register.dart';
 import 'package:demo_firebase/keys.dart';
@@ -45,7 +46,9 @@ class _RoutepageState extends State<Routepage> {
               builder: (context) => const Realtimedata(),
             );
           case '/login':
-            return MaterialPageRoute(builder: (context) => const Login());
+            return MaterialPageRoute(
+              builder: (context) => const FirebaseAuthUi(),
+            );
           case '/register':
             return MaterialPageRoute(builder: (context) => const Register());
           case '/verify':
